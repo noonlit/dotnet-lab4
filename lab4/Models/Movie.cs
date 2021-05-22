@@ -34,5 +34,7 @@ namespace Lab4.Models
 		public bool Watched { get; set; } = false;
 
 	    public List<Comment> Comments { get; set; }
+
+		public List<Favourites> Favourites { get; set; }
 	}
 }

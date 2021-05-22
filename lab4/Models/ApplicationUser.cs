@@ -8,5 +8,6 @@ namespace Lab4.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        public List<Favourites> Favourites { get; set; }
     }
 }
