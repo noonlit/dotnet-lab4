@@ -14,7 +14,6 @@ namespace Lab4.Data
     {
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Comment> Comments { get; set; }
-
         public DbSet<Favourites> Favourites { get; set; }
 
         public ApplicationDbContext(
