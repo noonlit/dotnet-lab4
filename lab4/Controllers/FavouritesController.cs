@@ -2,18 +2,27 @@
 using Lab4.Data;
 using Lab4.Models;
 using Lab4.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using AutoMapper;
+using Lab4.Data;
+using Lab4.Models;
+using Lab4.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Lab4.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = "Identity.Application,Bearer")]
     public class FavouritesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
