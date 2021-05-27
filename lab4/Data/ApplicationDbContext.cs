@@ -40,6 +40,8 @@ namespace Lab4.Data
             modelBuilder.Entity<Comment>().Property(c => c.Text).IsRequired();
             modelBuilder.Entity<Comment>().Property(c => c.Important).IsRequired().HasDefaultValue(false);
             modelBuilder.Entity<Comment>().Property(c => c.MovieId).IsRequired();
+
+            modelBuilder.Entity<Favourites>().HasIndex(f => new { f.UserId, f.Year }).IsUnique();
         }
     }
 }

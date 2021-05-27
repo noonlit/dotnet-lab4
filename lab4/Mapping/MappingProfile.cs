@@ -11,6 +11,7 @@ namespace Lab4.Mapping
             CreateMap<Comment, CommentViewModel>().ReverseMap();
             CreateMap<Movie, MovieWithCommentsViewModel>();
             CreateMap<Favourites, FavouritesForUserViewModel>().ReverseMap();
+            CreateMap<ApplicationUser, ApplicationUserViewModel>().ReverseMap();
         }
     }
 }

@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Lab4.ViewModels
 {
-	public class NewFavouriteForUserViewModel
+	public class UpdateFavouritesForUserViewModel
 	{
+		public int Id { get; set; }
 		public List<int> MovieIds { get; set; }
-		public int Year { get; set; }
 	}
 }
