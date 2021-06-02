@@ -30,6 +30,6 @@ namespace Lab4.ViewModels
 
 		public bool Watched { get; set; } = false;
 
-		public IEnumerable<CommentViewModel> Comments { get; set; }
+		public List<CommentViewModel> Comments { get; set; }
   }
 }

@@ -88,18 +88,20 @@ namespace Lab4.Controllers
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[HttpGet("{id}/Comments")]
-		public ActionResult<IEnumerable<MovieWithCommentsViewModel>> GetCommentsForMovie(int id)
+		public async Task<ActionResult<MovieWithCommentsViewModel>> GetCommentsForMovieAsync(int id)
 		{
 			if (!MovieExists(id))
 			{
 				return NotFound();
 			}
 
-			var query = _context.Movies.Where(m => m.Id == id)
-				.Include(m => m.Comments)
-				.Select(m => _mapper.Map<MovieWithCommentsViewModel>(m));
+			var movie = await _context.Movies.Where(m => m.Id == id).FirstOrDefaultAsync();
+			var comments = await _context.Comments.Where(c => c.MovieId == id).ToListAsync();
 
-			return query.ToList();
+			var result = _mapper.Map<MovieWithCommentsViewModel>(movie);
+			result.Comments = _mapper.Map<List<Comment>, List<CommentViewModel>>(comments);
+
+			return result;
 		}
 
 		/// <summary>
