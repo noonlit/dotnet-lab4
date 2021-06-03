@@ -159,6 +159,7 @@ namespace Lab4.Controllers
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[HttpPut("{id}")]
+		[Authorize(AuthenticationSchemes = "Identity.Application,Bearer")]
 		public async Task<IActionResult> PutMovie(int id, MovieViewModel movie)
 		{
 			if (id != movie.Id)
@@ -265,6 +266,7 @@ namespace Lab4.Controllers
 		[ProducesResponseType(StatusCodes.Status201Created)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		[HttpPost]
+		[Authorize(AuthenticationSchemes = "Identity.Application,Bearer")]
 		public async Task<ActionResult<Movie>> PostMovie(MovieViewModel movie)
 		{
 			_context.Movies.Add(_mapper.Map<Movie>(movie));
@@ -328,6 +330,7 @@ namespace Lab4.Controllers
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[HttpDelete("{id}")]
+		[Authorize(AuthenticationSchemes = "Identity.Application,Bearer")]
 		public async Task<IActionResult> DeleteMovie(int id)
 		{
 			var movie = await _context.Movies.FindAsync(id);
@@ -359,6 +362,7 @@ namespace Lab4.Controllers
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[HttpDelete("{id}/Comments/{commentId}")]
+		[Authorize(AuthenticationSchemes = "Identity.Application,Bearer")]
 		public async Task<IActionResult> DeleteComment(int commentId)
 		{
 			var comment = await _context.Comments.FindAsync(commentId);

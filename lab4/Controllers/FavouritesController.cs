@@ -35,19 +35,17 @@ namespace Lab4.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetAll()
+        public async Task<ActionResult<IEnumerable<FavouritesForUserViewModel>>> GetAll()
         {
             var user = await _userManager.FindByNameAsync(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
             if (user == null)
-			{
+            {
                 return NotFound();
-			}
+            }
 
-            var result = _context.Favourites.Where(f => f.User.Id == user.Id).Include(f => f.Movies).FirstOrDefault();
-            var resultViewModel = _mapper.Map<FavouritesForUserViewModel>(result);
-
-            return Ok(resultViewModel);
+            var result = _context.Favourites.Where(f => f.User.Id == user.Id).Include(f => f.Movies).OrderByDescending(f => f.Year).ToList();
+            return _mapper.Map<List<Favourites>, List<FavouritesForUserViewModel>>(result);
         }
 
         [HttpPost]
@@ -101,15 +99,7 @@ namespace Lab4.Controllers
                 return BadRequest("There is no favourites list with this ID.");
             }
 
-            updateFavouritesRequest.MovieIds.ForEach(mid =>
-            {
-                var movie = _context.Movies.Find(mid);
-                if (movie != null && !favourites.Movies.Contains(movie))
-                {
-                    favourites.Movies.Add(movie);
-                }
-            });
-
+            favourites.Movies = _context.Movies.Where(m => updateFavouritesRequest.MovieIds.Contains(m.Id)).ToList();
 
             _context.Entry(favourites).State = EntityState.Modified;
             await _context.SaveChangesAsync();
